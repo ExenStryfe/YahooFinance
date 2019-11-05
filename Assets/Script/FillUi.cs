@@ -6,6 +6,7 @@ public class FillUi : MonoBehaviour
 {
 
     //DOW UI Elements
+    [Header("DOW Elements")]
     public Text DOWNetChange;
     public Text DOWPercentChange;
     public Text DOWTradePrice;
@@ -13,6 +14,7 @@ public class FillUi : MonoBehaviour
     public Button DOWButton;
 
     //NASDAQ UI Elements
+    [Header("Nasdaq Elements")]
     public Text NasdaqNetChange;
     public Text NasdaqPercentChange;
     public Text NasdaqTradePrice;
@@ -20,6 +22,7 @@ public class FillUi : MonoBehaviour
     public Button nasdaqButton;
 
     //SP500 UI elements
+    [Header("S&P500 Elements")]
     public Text SP500NetChange;
     public Text SP500PercentChange;
     public Text SP500TradePrice;
@@ -30,6 +33,7 @@ public class FillUi : MonoBehaviour
     public FetchData Data;
 
     //Stock Panel Elements
+    [Header("Stock Panel Elements")]
     public Text StockName;
     public Text StockSymbol;
     public Text StockTradePrice;
@@ -165,6 +169,7 @@ public class FillUi : MonoBehaviour
                         StockArrow.transform.rotation = SP500Arrow.transform.rotation;
                     }
                     break;
+
 
                 case "NIM":
                     NasdaqNetChange.text = security.NetChange;

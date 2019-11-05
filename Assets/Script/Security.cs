@@ -14,6 +14,7 @@ using System;
 [Serializable]
 public class Security
 {
+#pragma warning disable 649
     [SerializeField] private string SYMBOL;
     [SerializeField] private string SHORT_NAME;
     [SerializeField] private string MARKET_CODE;
