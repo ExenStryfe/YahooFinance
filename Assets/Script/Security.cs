@@ -12,15 +12,19 @@ using System;
 
 // Security Class from JSON 
 [Serializable]
-public class Security 
+public class Security
 {
-        public string SYMBOL;
-        public string SHORT_NAME;
-        public string NAME;
-        public string MARKET_CODE;
-        public string TRADE_PRICE;
-        public string PERCENT_CHANGE;
-        public string NET_CHANGE;
-    }
+    [SerializeField] private string SYMBOL;
+    [SerializeField] private string SHORT_NAME;
+    [SerializeField] private string MARKET_CODE;
+    [SerializeField] private string TRADE_PRICE;
+    [SerializeField] private string PERCENT_CHANGE;
+    [SerializeField] private string NET_CHANGE;
 
-
+    public string Symbol => SYMBOL;
+    public string ShortName => SHORT_NAME;
+    public string MarketCode => MARKET_CODE;
+    public string TradePrice => TRADE_PRICE;
+    public string PercentChange => PERCENT_CHANGE;
+    public string NetChange => NET_CHANGE;
+}

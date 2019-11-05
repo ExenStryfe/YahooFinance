@@ -41,7 +41,6 @@ public class FillUi : MonoBehaviour
     public GameObject PanelStock;
 
     private string MarketCode;
-    private string PreviousMarketCode;
 
     void Start()
     {
@@ -53,13 +52,13 @@ public class FillUi : MonoBehaviour
 
         foreach (var security in Data.root)
         {
-            switch (security.MARKET_CODE)
+            switch (security.MarketCode)
             {
                 case "DJI":
 
-                    DOWNetChange.text = security.NET_CHANGE;
+                    DOWNetChange.text = security.NetChange;
                     //UI color Change
-                    if (security.NET_CHANGE.Contains("+"))
+                    if (security.NetChange.Contains("+"))
                     {
                         DOWNetChange.color = new Color32(4, 209, 103, 255);
                         DOWArrow.enabled = true;
@@ -67,7 +66,7 @@ public class FillUi : MonoBehaviour
                         DOWArrow.transform.rotation = Quaternion.Euler(0, 0, 0);
 
                     }
-                    else if (security.NET_CHANGE.Contains("-"))
+                    else if (security.NetChange.Contains("-"))
                     {
                         DOWNetChange.color = new Color32(255, 51, 58, 255);
                         DOWArrow.enabled = true;
@@ -81,13 +80,13 @@ public class FillUi : MonoBehaviour
                     }
 
 
-                    DOWPercentChange.text = "(" + security.PERCENT_CHANGE + "%)";
+                    DOWPercentChange.text = "(" + security.PercentChange + "%)";
                     //UI color Change
-                    if (security.PERCENT_CHANGE.Contains("+"))
+                    if (security.PercentChange.Contains("+"))
                     {
                         DOWPercentChange.color = new Color32(4, 209, 103, 255);
                     }
-                    else if (security.NET_CHANGE.Contains("-"))
+                    else if (security.NetChange.Contains("-"))
                     {
                         DOWPercentChange.color = new Color32(255, 51, 58, 255);
                     }
@@ -97,13 +96,13 @@ public class FillUi : MonoBehaviour
                     }
 
 
-                    DOWTradePrice.text = security.TRADE_PRICE;
+                    DOWTradePrice.text = security.TradePrice;
 
                     //Fill UI Stock Panel
-                    if(/*PanelStock.activeSelf == true && */MarketCode == security.MARKET_CODE)
+                    if(/*PanelStock.activeSelf == true && */MarketCode == security.MarketCode)
                     {
-                        StockName.text = security.SHORT_NAME;
-                        StockSymbol.text = "("+ security.SYMBOL+")";
+                        StockName.text = security.ShortName;
+                        StockSymbol.text = "("+ security.Symbol+")";
                         StockTradePrice.text = DOWTradePrice.text;
                         StockNetChange.text = DOWNetChange.text;
                         StockPercentChange.text = DOWPercentChange.text;
@@ -113,16 +112,16 @@ public class FillUi : MonoBehaviour
                     break;
 
                 case "SNP":
-                    SP500NetChange.text = security.NET_CHANGE;
+                    SP500NetChange.text = security.NetChange;
                     //UI color Change
-                    if (security.NET_CHANGE.Contains("+"))
+                    if (security.NetChange.Contains("+"))
                     {
                         SP500NetChange.color = new Color32(4, 209, 103, 255);
                         SP500Arrow.enabled = true;
                         SP500Arrow.color = new Color32(0, 255, 27, 255);
                         SP500Arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
                     }
-                    else if (security.NET_CHANGE.Contains("-"))
+                    else if (security.NetChange.Contains("-"))
                     {
                         SP500NetChange.color = new Color32(255, 51, 58, 255);
                         SP500Arrow.enabled = true;
@@ -136,13 +135,13 @@ public class FillUi : MonoBehaviour
                     }
 
 
-                    SP500PercentChange.text = "(" + security.PERCENT_CHANGE + "%)";
+                    SP500PercentChange.text = "(" + security.PercentChange + "%)";
                     //UI color Change
-                    if (security.PERCENT_CHANGE.Contains("+"))
+                    if (security.PercentChange.Contains("+"))
                     {
                         SP500PercentChange.color = new Color32(4, 209, 103, 255);
                     }
-                    else if (security.NET_CHANGE.Contains("-"))
+                    else if (security.NetChange.Contains("-"))
                     {
                         SP500PercentChange.color = new Color32(255, 51, 58, 255);
                     }
@@ -152,13 +151,13 @@ public class FillUi : MonoBehaviour
                     }
 
 
-                    SP500TradePrice.text = security.TRADE_PRICE;
+                    SP500TradePrice.text = security.TradePrice;
 
                     //Fill UI Stock Panel
-                    if (/*PanelStock.activeSelf == true &&*/ MarketCode == security.MARKET_CODE)
+                    if (/*PanelStock.activeSelf == true &&*/ MarketCode == security.MarketCode)
                     {
-                        StockName.text = security.SHORT_NAME;
-                        StockSymbol.text = "(" + security.SYMBOL + ")";
+                        StockName.text = security.ShortName;
+                        StockSymbol.text = "(" + security.Symbol + ")";
                         StockTradePrice.text = SP500TradePrice.text;
                         StockNetChange.text = SP500NetChange.text;
                         StockPercentChange.text = SP500PercentChange.text;
@@ -168,9 +167,9 @@ public class FillUi : MonoBehaviour
                     break;
 
                 case "NIM":
-                    NasdaqNetChange.text = security.NET_CHANGE;
+                    NasdaqNetChange.text = security.NetChange;
                     //UI color Change
-                    if (security.NET_CHANGE.Contains("+"))
+                    if (security.NetChange.Contains("+"))
                     {
                         NasdaqNetChange.color = new Color32(4, 209, 103, 255);
                         NasdaqArrow.enabled = true;
@@ -178,7 +177,7 @@ public class FillUi : MonoBehaviour
                         NasdaqArrow.transform.rotation = Quaternion.Euler(0, 0, 0);
                         
                     }
-                    else if (security.NET_CHANGE.Contains("-"))
+                    else if (security.NetChange.Contains("-"))
                     {
                         NasdaqNetChange.color = new Color32(255, 51, 58, 255);
                         NasdaqArrow.enabled = true;
@@ -192,13 +191,13 @@ public class FillUi : MonoBehaviour
                     }
 
 
-                    NasdaqPercentChange.text = "(" + security.PERCENT_CHANGE + "%)";
+                    NasdaqPercentChange.text = "(" + security.PercentChange + "%)";
                     //UI color Change
-                    if (security.PERCENT_CHANGE.Contains("+"))
+                    if (security.PercentChange.Contains("+"))
                     {
                         NasdaqPercentChange.color = new Color32(4, 209, 103, 255);
                     }
-                    else if (security.NET_CHANGE.Contains("-"))
+                    else if (security.NetChange.Contains("-"))
                     {
                         NasdaqPercentChange.color = new Color32(255, 51, 58, 255);
                     }
@@ -208,13 +207,13 @@ public class FillUi : MonoBehaviour
                     }
 
 
-                    NasdaqTradePrice.text = security.TRADE_PRICE;
+                    NasdaqTradePrice.text = security.TradePrice;
 
                     //Fill UI Stock Panel
-                    if (/*PanelStock.activeSelf == true && */MarketCode == security.MARKET_CODE)
+                    if (/*PanelStock.activeSelf == true && */MarketCode == security.MarketCode)
                     {
-                        StockName.text = security.SHORT_NAME;
-                        StockSymbol.text = "(" + security.SYMBOL + ")";
+                        StockName.text = security.ShortName;
+                        StockSymbol.text = "(" + security.Symbol + ")";
                         StockTradePrice.text = NasdaqTradePrice.text;
                         StockNetChange.text = NasdaqNetChange.text;
                         StockPercentChange.text = NasdaqPercentChange.text;
