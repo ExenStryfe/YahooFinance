@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
 public class FillUi : MonoBehaviour
 {
 
+    public string fetchUrl = "http://y.astuce.media:9990/gfx/finance/group.json?GroupCode=StockBoxAuto";
+    
     //DOW UI Elements
-    [Header("DOW Elements")]
+    [Header ("DOW Elements")]
     public Text DOWNetChange;
     public Text DOWPercentChange;
     public Text DOWTradePrice;
@@ -14,7 +17,7 @@ public class FillUi : MonoBehaviour
     public Button DOWButton;
 
     //NASDAQ UI Elements
-    [Header("Nasdaq Elements")]
+    [Header("NASDAQ Elements")]
     public Text NasdaqNetChange;
     public Text NasdaqPercentChange;
     public Text NasdaqTradePrice;
@@ -45,16 +48,24 @@ public class FillUi : MonoBehaviour
     public GameObject PanelStock;
 
     private string MarketCode;
+    private string PreviousMarketCode;
 
     void Start()
     {
+        Data = new FetchData(fetchUrl);
+        Data.DataUpdated += FillTheUI;
         StartCoroutine(Data.Fetch());
     }
 
-    public void FillTheUI()
+    private void OnDestroy()
+    {
+        Data.DataUpdated -= FillTheUI;
+    }
+
+    public void FillTheUI(RootObject root)
     {
 
-        foreach (var security in Data.root)
+        foreach (var security in root)
         {
             switch (security.MarketCode)
             {
@@ -169,7 +180,6 @@ public class FillUi : MonoBehaviour
                         StockArrow.transform.rotation = SP500Arrow.transform.rotation;
                     }
                     break;
-
 
                 case "NIM":
                     NasdaqNetChange.text = security.NetChange;
