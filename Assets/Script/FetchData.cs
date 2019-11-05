@@ -3,38 +3,42 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Events;
 
-public class FetchData : MonoBehaviour
+public class FetchData
 {
-    private string url = "http://y.astuce.media:9990/gfx/finance/group.json?GroupCode=StockBoxAuto";
-    private string mySavedJSON;
-    public RootObject root;
+    private readonly string _url;
+    private RootObject root;
 
-    public UnityEvent dataUpdated;
+    public delegate void DataUpdatedHandler(RootObject root);
+    public event DataUpdatedHandler DataUpdated;
 
+    public FetchData(string url)
+    {
+        _url = url;
+    }
     //Unity Web Request GET JSON
     public IEnumerator Fetch()
     {
-        UnityWebRequest w = UnityWebRequest.Get(url);
-        yield return w.SendWebRequest();
-        if (w.isNetworkError || w.isHttpError)
-            Debug.Log("Network Error" + w.error);
-        else
+        using (var w = UnityWebRequest.Get(_url))
         {
-            mySavedJSON = w.downloadHandler.text;
-           //Debug.Log(mySavedJSON);
-            DataUpdate(mySavedJSON);
-            dataUpdated.Invoke();
+            yield return w.SendWebRequest();
+            if (w.isNetworkError || w.isHttpError)
+                Debug.Log("Network Error" + w.error);
+            else
+            {
+                //Debug.Log(mySavedJSON);
+                DataUpdate(w.downloadHandler.text);
+                DataUpdated?.Invoke(root);
+            }
         }
-
     }
 
     // Data creation/overwrite with JSON
-    public void DataUpdate(string SavedJSON)
+    private void DataUpdate(string json)
     {
         if (root == null)
-            root = JsonUtility.FromJson<RootObject>(SavedJSON);
+            root = JsonUtility.FromJson<RootObject>(json);
         else
-           JsonUtility.FromJsonOverwrite(SavedJSON, root);
+           JsonUtility.FromJsonOverwrite(json, root);
     }  
 
  
